@@ -18,7 +18,8 @@ namespace ToDoList.Controllers
 
     public ActionResult Index()
     {
-      return View(_db.Items.ToList());
+      // List<Restaurant> SortedList = model.OrderBy(o => o.Name).ToList();
+      return View(_db.Items.OrderBy(o => o.DueDate).ToList());
     }
     
     public ActionResult Create()
@@ -102,6 +103,16 @@ namespace ToDoList.Controllers
       _db.CategoryItem.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult Complete(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      thisItem.Complete = true;
+      _db.Entry(thisItem).State = EntityState.Modified;
+      _db.SaveChanges();
+      return View("Index");
     }
 
   }

@@ -14,6 +14,12 @@
 
     @Html.LabelFor(model => model.Description)
     @Html.EditorFor(model => model.Description)
+    @Html.LabelFor(model => model.DueDate)
+    @Html.TextBoxFor(model => model.DueDate, 
+      new {@required="required", type="date"})
+    @Html.LabelFor(model => model.Complete)
+    @Html.CheckBoxFor(model => model.Complete, false)
+
 
     @Html.Label("Select category")
     @Html.DropDownList("CategoryId")
